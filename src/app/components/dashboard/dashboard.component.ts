@@ -29,11 +29,19 @@ export class DashboardComponent implements OnInit {
       if(params.inbox) {
         this.showInbox();
       }
+      else if(params.project) {
+        this.showProject(params.project);
+      }
     });
   }
 
   private showInbox(): void {
     const dialog = this.dialog.open(ListComponent, { disableClose: true, data: { filter: 'inbox' }});
+    dialog.afterClosed().subscribe(x => this.router.navigate(['dashboard']));
+  }
+
+  private showProject(name: string): void {
+    const dialog = this.dialog.open(ListComponent, { disableClose: true, data: { filter: 'project', name }});
     dialog.afterClosed().subscribe(x => this.router.navigate(['dashboard']));
   }
 

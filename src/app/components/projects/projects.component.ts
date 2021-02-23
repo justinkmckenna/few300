@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { ProjectListItem } from 'src/app/models';
+import { AppState, selectProjects } from 'src/app/reducers';
 
 @Component({
   selector: 'app-projects',
@@ -7,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectsComponent implements OnInit {
 
-  constructor() { }
+  projects$: Observable<ProjectListItem[]>
+
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
+    this.projects$ = this.store.select(selectProjects);
   }
 
 }

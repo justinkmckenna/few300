@@ -18,6 +18,11 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './reducers';
 import { ListComponent } from './components/list/list.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './services/auth.guard';
+import { HttpClientModule } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './effects/auth.effects';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,8 @@ import { ListComponent } from './components/list/list.component';
     ActionsComponent,
     InboxComponent,
     TodoEntryComponent,
-    ListComponent
+    ListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -37,11 +43,13 @@ import { ListComponent } from './components/list/list.component';
     BrowserAnimationsModule,
     LayoutModule,
     ReactiveFormsModule,
+    HttpClientModule,
     ...MaterialModules,
     StoreModule.forRoot(reducers),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([AuthEffects])
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,4 +6,5 @@ export interface TodoCreate {
 
 export interface TodoListItem extends TodoCreate {
   id: string;
+  completed: boolean;
 }
