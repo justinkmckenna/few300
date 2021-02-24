@@ -20,9 +20,15 @@ import { reducers } from './reducers';
 import { ListComponent } from './components/list/list.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './services/auth.guard';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './effects/auth.effects';
+import { AuthInterceptor } from './services/auth.interceptor';
+import { TodosDataService } from './services/todos.data-service';
+import { TodosEffects } from './effects/todos.effects';
+import { ProjectsDataService } from './services/projects.data-service';
+import { ProjectsEffects } from './effects/projects.effects';
+import { AdminModule } from './features/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -45,11 +51,19 @@ import { AuthEffects } from './effects/auth.effects';
     ReactiveFormsModule,
     HttpClientModule,
     ...MaterialModules,
+    AdminModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([AuthEffects])
+    EffectsModule.forRoot([AuthEffects, TodosEffects, ProjectsEffects])
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    TodosDataService,
+    ProjectsDataService,
+    {
+      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

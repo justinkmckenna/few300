@@ -18,3 +18,7 @@ export const loginFailed = createAction(
 export const logoutRequested = createAction(
   '[app] auth logout requested'
 );
+
+export const checkCreds = createAction(
+  '[app] check creds'
+);

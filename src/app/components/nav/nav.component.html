@@ -5,9 +5,9 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <button *ngIf="isLoggedIn$ | async" mat-list-item (click)="to('dashboard')">Dashboard</button>
+      <button *ngIf="isLoggedIn$ | async" mat-list-item (click)="to('admin')">Admin</button>
+      <button *ngIf="isLoggedIn$ | async" mat-list-item (click)="logout()">Logout</button>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -39,7 +39,7 @@ export const selectInboxItems = createSelector(
 );
 
 export const selectProjectItems = createSelector(
-  selectAllTodoArray,
+  selectTodoItemsListModel,
   (todos, props: { project: string }) => {
     return todos.filter(todo => todo.project === props.project).map(todo => todo as models.TodoListItem);
   });
@@ -63,4 +63,9 @@ export const selectProjects = createSelector(
 export const selectIsLoggedIn = createSelector(
   selectAuthBranch,
   b => b.isLoggedIn
+);
+
+export const selectAuthToken = createSelector(
+  selectAuthBranch,
+  b => b.token
 );

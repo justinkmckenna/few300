@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { TodoListItem } from 'src/app/models';
-import { AppState, selectInboxItems } from 'src/app/reducers';
+import { loadProjects } from 'src/app/actions/project.actions';
+import { loadTodos } from 'src/app/actions/todo-item.actions';
+import { AppState } from 'src/app/reducers';
 import { ListComponent } from '../list/list.component';
 
 @Component({
@@ -14,34 +14,34 @@ import { ListComponent } from '../list/list.component';
 })
 export class DashboardComponent implements OnInit {
 
-  inboxItems$: Observable<TodoListItem[]>;
-
   constructor(
     private store: Store<AppState>,
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute
-    ) { }
+  ) {
+    store.dispatch(loadTodos());
+    store.dispatch(loadProjects());
+  }
 
   ngOnInit(): void {
-    this.inboxItems$ = this.store.select(selectInboxItems);
     this.route.queryParams.subscribe(params => {
-      if(params.inbox) {
+      if (params.inbox) {
         this.showInbox();
       }
-      else if(params.project) {
+      else if (params.project) {
         this.showProject(params.project);
       }
     });
   }
 
   private showInbox(): void {
-    const dialog = this.dialog.open(ListComponent, { disableClose: true, data: { filter: 'inbox' }});
+    const dialog = this.dialog.open(ListComponent, { disableClose: true, data: { filter: 'inbox' } });
     dialog.afterClosed().subscribe(x => this.router.navigate(['dashboard']));
   }
 
   private showProject(name: string): void {
-    const dialog = this.dialog.open(ListComponent, { disableClose: true, data: { filter: 'project', name }});
+    const dialog = this.dialog.open(ListComponent, { disableClose: true, data: { filter: 'project', name } });
     dialog.afterClosed().subscribe(x => this.router.navigate(['dashboard']));
   }
 

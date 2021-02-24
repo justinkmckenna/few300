@@ -5,10 +5,10 @@
     <mat-divider></mat-divider>
     <span>{{ item.project || 'No Project' }}</span>
     <span>{{ (item.dueDate | date:'medium') || 'No Due Date' }}</span>
-    <button mat-button *ngIf="!item.completed" (click)="markCompleteOrIncomplete(item)">
+    <button mat-button *ngIf="!item.completed && !item.id.startsWith('T')" (click)="markCompleteOrIncomplete(item)">
       <mat-icon>radio_button_unchecked</mat-icon>
     </button>
-    <button mat-button *ngIf="item.completed" (click)="markCompleteOrIncomplete(item)">
+    <button mat-button *ngIf="item.completed && !item.id.startsWith('T')" (click)="markCompleteOrIncomplete(item)">
       <mat-icon>radio_button_checked</mat-icon>
     </button>
   </div>

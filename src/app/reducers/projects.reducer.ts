@@ -1,5 +1,6 @@
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
-import { createReducer, Action } from '@ngrx/store';
+import { createReducer, Action, on } from '@ngrx/store';
+import * as actions from '../actions/project.actions';
 
 export interface ProjectEntity {
   id: string;
@@ -12,22 +13,23 @@ export interface ProjectState extends EntityState<ProjectEntity> {
 
 export const adapter = createEntityAdapter<ProjectEntity>();
 
-// const initialState = adapter.getInitialState();
+const initialState = adapter.getInitialState();
 
-const fakeInitialState: ProjectState = {
-  ids: ['1','2','3'],
-  entities: {
-    1: { id: '1', name: 'Home' },
-    2: { id: '2', name: 'Work' },
-    3: { id: '3', name: 'Fitness' },
-  }
-}
+// const fakeInitialState: ProjectState = {
+//   ids: ['1','2','3'],
+//   entities: {
+//     1: { id: '1', name: 'Home' },
+//     2: { id: '2', name: 'Work' },
+//     3: { id: '3', name: 'Fitness' },
+//   }
+// }
 
 const reducerFunction = createReducer(
-  fakeInitialState
+  initialState,
+  on(actions.loadProjectsSuccess, (state, action) => adapter.setAll(action.payload, state))
 );
 
-export function reducer(state: ProjectState = fakeInitialState, action: Action) {
+export function reducer(state: ProjectState = initialState, action: Action) {
   return reducerFunction(state, action);
 }
 
