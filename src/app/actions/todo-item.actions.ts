@@ -31,6 +31,15 @@ export const todoItemCompleteToggle = createAction(
   props<{ item: TodoEntity }>()
 );
 
+export const todoItemCompleteToggledSuccess = createAction(
+  '[app] todo item complete toggled success'
+);
+
+export const todoItemCompleteToggledFailed = createAction(
+  '[app] todo item complete toggled failed',
+  props<{payload: TodoEntity, message: string}>()
+);
+
 export const loadTodos = createAction(
   '[app] load todos'
 );

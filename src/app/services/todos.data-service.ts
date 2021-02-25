@@ -18,6 +18,15 @@ export class TodosDataService {
     return this.client.post<TodoEntity>(this.baseUrl, entity);
   }
 
+  toggleTodo(todo: TodoEntity): Observable<any> {
+    const previousCompletedStatus = todo.completed;
+    if (previousCompletedStatus === true) {
+      return this.client.post<TodoEntity>(this.baseUrl + 'incomplete', todo);
+    } else {
+      return this.client.post<TodoEntity>(this.baseUrl + 'completed', todo);
+    }
+  }
+
   getAllTodos(): Observable<TodoEntity[]> {
     return this.client.get<GetTodosResponse>(this.baseUrl).pipe(
       map(response => response.data)

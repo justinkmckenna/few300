@@ -44,6 +44,7 @@ const reducerFunction = createReducer(
   on(actions.todoItemCompleteToggle, (state, action) =>
     adapter.updateOne({ id: action.item.id, changes: { completed: !action.item.completed } }, state)
   ),
+  on(actions.todoItemCompleteToggledFailed, (state, action) => adapter.removeOne(action.payload.id, state)),
   on(actions.loadTodosSuccess, (state, action) => adapter.setAll(action.payload, state))
 );
 
