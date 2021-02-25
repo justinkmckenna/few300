@@ -19,5 +19,15 @@ export class ProjectsEffects {
     ), {dispatch: true}
   );
 
+  add$ = createEffect(() =>
+        this.actions$.pipe(
+          ofType(actions.projectItemAdded),
+          switchMap((a) => this.service.addProject(a.payload).pipe(
+            map(payload => actions.projectItemAddedSuccess({payload, oldId: a.payload.id})),
+            catchError(e => of(actions.projectItemAddedFailed({payload: a.payload, message: e})))
+          ))
+        )
+  );
+
   constructor(private actions$: Actions, private service: ProjectsDataService) { }
 }

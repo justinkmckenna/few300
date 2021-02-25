@@ -29,6 +29,7 @@ import { TodosEffects } from './effects/todos.effects';
 import { ProjectsDataService } from './services/projects.data-service';
 import { ProjectsEffects } from './effects/projects.effects';
 import { AdminModule } from './features/admin/admin.module';
+import { ProjectEntryComponent } from './components/project-entry/project-entry.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AdminModule } from './features/admin/admin.module';
     InboxComponent,
     TodoEntryComponent,
     ListComponent,
-    LoginComponent
+    LoginComponent,
+    ProjectEntryComponent
   ],
   imports: [
     BrowserModule,

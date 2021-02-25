@@ -1,0 +1,16 @@
+<form [formGroup]="form" *ngIf="projects$ | async as projects"
+      (ngSubmit)="submit(projects)">
+  <div class="field-container">
+    <mat-label>Enter Project Name</mat-label>
+    <mat-form-field appearance="fill">
+      <input matInput
+             formControlName="name">
+      <mat-hint align="end">This is required</mat-hint>
+    </mat-form-field>
+  </div>
+  <div>
+    <button type="submit"
+            mat-button>Add Item</button>
+    <button (click)="cancel()" mat-button>Cancel</button>
+  </div>
+</form>

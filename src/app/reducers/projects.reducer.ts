@@ -26,7 +26,13 @@ const initialState = adapter.getInitialState();
 
 const reducerFunction = createReducer(
   initialState,
-  on(actions.loadProjectsSuccess, (state, action) => adapter.setAll(action.payload, state))
+  on(actions.loadProjectsSuccess, (state, action) => adapter.setAll(action.payload, state)),
+  on(actions.projectItemAdded, (state, action) => adapter.addOne(action.payload, state)),
+  on(actions.projectItemAddedSuccess, (state, action) => {
+    const tempState = adapter.removeOne(action.oldId, state);
+    return adapter.addOne(action.payload, tempState);
+  }),
+  on(actions.projectItemAddedFailed, (state, action) => adapter.removeOne(action.payload.id, state)),
 );
 
 export function reducer(state: ProjectState = initialState, action: Action) {

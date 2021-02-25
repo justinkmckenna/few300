@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatBottomSheet, MatBottomSheetConfig} from '@angular/material/bottom-sheet';
+import { ProjectEntryComponent } from '../project-entry/project-entry.component';
 import { TodoEntryComponent } from '../todo-entry/todo-entry.component';
 
 @Component({
@@ -21,6 +22,10 @@ export class ActionsComponent implements OnInit {
 
   addItem(): void {
     this._bottomSheet.open(TodoEntryComponent, this.bottomSheetConfig);
+  }
+
+  addProject(): void {
+    this._bottomSheet.open(ProjectEntryComponent, this.bottomSheetConfig);
   }
 
 }
