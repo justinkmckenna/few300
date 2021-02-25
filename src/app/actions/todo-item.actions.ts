@@ -40,6 +40,20 @@ export const todoItemCompleteToggledFailed = createAction(
   props<{payload: TodoEntity, message: string}>()
 );
 
+export const updateItemProject = createAction(
+  '[app] update item project',
+  props<{ itemId: string, projectName: string }>()
+);
+
+export const updateItemProjectSuccess = createAction(
+  '[app] update item project success'
+);
+
+export const updateItemProjectFailed = createAction(
+  '[app] update item project failed',
+  props<{itemId: string, orgProjectName: string, message: string}>()
+);
+
 export const loadTodos = createAction(
   '[app] load todos'
 );

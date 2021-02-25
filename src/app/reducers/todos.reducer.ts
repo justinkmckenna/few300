@@ -34,6 +34,8 @@ const reducerFunction = createReducer(
     return adapter.addOne(action.payload, tempState);
   }),
   on(actions.todoItemAddedFailed, (state, action) => adapter.removeOne(action.payload.id, state)),
+  on(actions.updateItemProject, (state, action) => adapter.updateOne({id: action.itemId, changes: {project: action.projectName}}, state)),
+  on(actions.updateItemProjectFailed, (state, action) => adapter.updateOne({id: action.itemId, changes: {project: action.orgProjectName}}, state)),
   // Could add the item this way, but above looks cleaner and protects against the actual item somehow changing in the API
   // on(actions.todoItemAddedSuccess, (state, action) => adapter.updateOne({
   //   id: action.oldId,
@@ -44,7 +46,7 @@ const reducerFunction = createReducer(
   on(actions.todoItemCompleteToggle, (state, action) =>
     adapter.updateOne({ id: action.item.id, changes: { completed: !action.item.completed } }, state)
   ),
-  on(actions.todoItemCompleteToggledFailed, (state, action) => adapter.removeOne(action.payload.id, state)),
+  on(actions.todoItemCompleteToggledFailed, (state, action) => adapter.updateOne({ id: action.payload.id, changes: { completed: !action.payload.completed } }, state)),
   on(actions.loadTodosSuccess, (state, action) => adapter.setAll(action.payload, state))
 );
 

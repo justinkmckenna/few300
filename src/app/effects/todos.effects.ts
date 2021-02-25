@@ -29,6 +29,16 @@ export class TodosEffects {
     )
   );
 
+  updateProject$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.updateItemProject),
+      switchMap((a) => this.service.updateItemProject(a.itemId, a.projectName).pipe(
+        map(payload => actions.updateItemProjectSuccess()),
+        catchError(e => of(actions.updateItemProjectFailed({itemId: a.itemId, orgProjectName: a.projectName, message: e})))
+      ))
+    )
+  );
+
   toggleComplete$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.todoItemCompleteToggle),

@@ -21,10 +21,15 @@ export class TodosDataService {
   toggleTodo(todo: TodoEntity): Observable<any> {
     const previousCompletedStatus = todo.completed;
     if (previousCompletedStatus === true) {
-      return this.client.post<TodoEntity>(this.baseUrl + 'incomplete', todo);
+      return this.client.post<any>(this.baseUrl + 'incomplete', todo);
     } else {
-      return this.client.post<TodoEntity>(this.baseUrl + 'completed', todo);
+      return this.client.post<any>(this.baseUrl + 'completed', todo);
     }
+  }
+
+  updateItemProject(id: string, project: string): Observable<any> {
+    const body = {"value": project};
+    return this.client.post<any>(this.baseUrl + id + '/project', body);
   }
 
   getAllTodos(): Observable<TodoEntity[]> {

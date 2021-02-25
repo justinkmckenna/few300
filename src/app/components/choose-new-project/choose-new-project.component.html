@@ -1,0 +1,7 @@
+<h4>Choose a new project for {{data.item.name}} or <button mat-button (click)="cancel()">cancel</button></h4>
+<span>
+  <button (click)="changeProject('reset')" *ngIf="data.item.project" mat-button>Reset</button>
+  <div *ngFor="let project of (projects$ | async)">
+    <button (click)="changeProject(project.name)" *ngIf="data.item.project !== project.name" mat-button>{{project.name}}</button>
+  </div>
+</span>

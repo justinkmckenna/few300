@@ -30,6 +30,7 @@ import { ProjectsDataService } from './services/projects.data-service';
 import { ProjectsEffects } from './effects/projects.effects';
 import { AdminModule } from './features/admin/admin.module';
 import { ProjectEntryComponent } from './components/project-entry/project-entry.component';
+import { ChooseNewProjectComponent } from './components/choose-new-project/choose-new-project.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ProjectEntryComponent } from './components/project-entry/project-entry.
     TodoEntryComponent,
     ListComponent,
     LoginComponent,
-    ProjectEntryComponent
+    ProjectEntryComponent,
+    ChooseNewProjectComponent
   ],
   imports: [
     BrowserModule,

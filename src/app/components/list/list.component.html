@@ -3,8 +3,8 @@
   <div class="item">
     <span>{{ item.name }}</span>
     <mat-divider></mat-divider>
-    <span>{{ item.project || 'No Project' }}</span>
-    <span>{{ (item.dueDate | date:'medium') || 'No Due Date' }}</span>
+    <span>{{ item.project || 'No Project' }}<mat-icon (click)="changeProject(item)">edit</mat-icon></span>
+    <span>{{ (item.dueDate | date:'medium') || 'No Due Date' }}<mat-icon (click)="changeDueDate(item)">edit</mat-icon></span>
     <button mat-button *ngIf="!item.completed && !item.id.startsWith('T')" (click)="markCompleteOrIncomplete(item)">
       <mat-icon>radio_button_unchecked</mat-icon>
     </button>
